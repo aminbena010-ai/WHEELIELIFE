@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Completa - Wheelie Life</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== VARIABLES Y RESET ===== */
+        :root {
+            --primary: #4a6fa5;
+            --secondary: #ff6b6b;
+            --accent: #ffd166;
+            --dark: #1a1b2e;
+            --darker: #0d0e1a;
+            --light: #f8f9fa;
+            --success: #4CAF50;
+            --warning: #ff9800;
+            --info: #2196F3;
+            --pixel-border: 3px solid #000;
+            --card-bg: rgba(45, 48, 71, 0.95);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: var(--light);
+            line-height: 1.8;
+            min-height: 100vh;
+        }
+
+        /* ===== TIPOGRAFÍA ===== */
+        .pixel-font {
+            font-family: 'Press Start 2P', cursive;
+            letter-spacing: 1px;
+        }
+
+        /* ===== ESTILOS PIXELADOS ===== */
+        .pixel-box {
+            border: var(--pixel-border);
+            box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.5);
+            position: relative;
+            background: var(--card-bg);
+        }
+
+        .pixel-box::after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            right: -4px;
+            bottom: -4px;
+            border: var(--pixel-border);
+            z-index: -1;
+        }
+
+        .pixel-btn {
+            border: var(--pixel-border);
+            background: var(--primary);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 12px 24px;
+            transition: all 0.3s ease;
+            position: relative;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        .pixel-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
+        }
+
+        /* ===== LAYOUT ===== */
+        .guide-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* ===== HEADER ===== */
+        .guide-header {
+            text-align: center;
+            padding: 30px 20px;
+            margin-bottom: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+
+        .guide-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .logo-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: var(--pixel-border);
+            transform: rotate(45deg);
+        }
+
+        .logo-icon i {
+            transform: rotate(-45deg);
+            font-size: 36px;
+            color: white;
+        }
+
+        .guide-title {
+            font-size: 2.5rem;
+            color: var(--accent);
+            text-shadow: 3px 3px 0 #000;
+            margin-bottom: 10px;
+        }
+
+        .guide-subtitle {
+            font-size: 1.2rem;
+            color: #aaa;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* ===== NAVEGACIÓN DE LA GUÍA ===== */
+        .guide-nav {
+            margin-bottom: 40px;
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .nav-card {
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .nav-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .nav-title {
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        /* ===== CONTENIDO DE LA GUÍA ===== */
+        .guide-content {
+            margin-bottom: 40px;
+        }
+
+        .guide-section {
+            margin-bottom: 60px;
+            display: none;
+        }
+
+        .guide-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            color: var(--accent);
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .section-subtitle {
+            color: var(--accent);
+            font-size: 1.4rem;
+            margin: 30px 0 20px;
+        }
+
+        .section-content {
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        /* ===== LISTAS ===== */
+        .guide-list {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        .guide-list li {
+            margin-bottom: 15px;
+            color: #ccc;
+            position: relative;
+            padding-left: 10px;
+        }
+
+        .guide-list li:before {
+            content: "►";
+            color: var(--accent);
+            position: absolute;
+            left: -20px;
+        }
+
+        /* ===== TABLAS ===== */
+        .guide-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .guide-table th {
+            background: rgba(74, 111, 165, 0.3);
+            color: var(--accent);
+            padding: 15px;
+            text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .guide-table td {
+            padding: 12px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ccc;
+        }
+
+        .guide-table tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* ===== CÓDIGOS Y EJEMPLOS ===== */
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .code-title {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .copy-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .copy-btn:hover {
+            background: var(--secondary);
+        }
+
+        pre {
+            color: #ccc;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .code-comment {
+            color: #6a9955;
+        }
+
+        .code-keyword {
+            color: #569cd6;
+        }
+
+        .code-string {
+            color: #ce9178;
+        }
+
+        .code-number {
+            color: #b5cea8;
+        }
+
+        /* ===== IMÁGENES Y MEDIA ===== */
+        .image-container {
+            text-align: center;
+            margin: 25px 0;
+        }
+
+        .guide-image {
+            max-width: 100%;
+            border: var(--pixel-border);
+            border-radius: 5px;
+        }
+
+        .image-caption {
+            color: #aaa;
+            font-style: italic;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        /* ===== TIPS Y ADVERTENCIAS ===== */
+        .tip-box {
+            background: rgba(255, 209, 102, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 20px;
+            margin: 25px 0;
+        }
+
+        .warning-box {
+            background: rgba(255, 107, 107, 0.1);
+            border-left: 4px solid var(--secondary);
+            padding: 20px;
+            margin: 25px 0;
+        }
+
+        .info-box {
+            background: rgba(74, 111, 165, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            margin: 25px 0;
+        }
+
+        /* ===== FOOTER ===== */
+        .guide-footer {
+            padding: 30px 20px;
+            text-align: center;
+            border-top: 2px solid rgba(255, 255, 255, 0.1);
+            margin-top: 40px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: var(--accent);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        .copyright {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+
+        /* ===== ANIMACIONES ===== */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--darker);
+            border: var(--pixel-border);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border: var(--pixel-border);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .guide-container {
+                padding: 10px;
+            }
+            
+            .guide-title {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .nav-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .guide-title {
+                font-size: 1.5rem;
+            }
+            
+            .guide-logo {
+                flex-direction: column;
+            }
+            
+            .guide-list {
+                margin-left: 15px;
+            }
+            
+            .nav-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="guide-container">
+        <!-- Encabezado -->
+        <header class="guide-header pixel-box">
+            <div class="guide-logo">
+                <div class="logo-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <div>
+                    <h1 class="guide-title pixel-font">GUÍA COMPLETA</h1>
+                    <p class="guide-subtitle">Todo lo que necesitas saber para dominar Wheelie Life</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navegación de la Guía -->
+        <nav class="guide-nav">
+            <div class="nav-grid">
+                <div class="nav-card pixel-box" onclick="showSection('basics')">
+                    <div class="nav-icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <h3 class="nav-title pixel-font">Básicos</h3>
+                    <p>Conceptos fundamentales del juego</p>
+                </div>
+                
+                <div class="nav-card pixel-box" onclick="showSection('controls')">
+                    <div class="nav-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3 class="nav-title pixel-font">Controles</h3>
+                    <p>Configuración y atajos de teclado</p>
+                </div>
+                
+                <div class="nav-card pixel-box" onclick="showSection('tricks')">
+                    <div class="nav-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="nav-title pixel-font">Trucos</h3>
+                    <p>Acrobacias y maniobras avanzadas</p>
+                </div>
+                
+                <div class="nav-card pixel-box" onclick="showSection('levels')">
+                    <div class="nav-icon">
+                        <i class="fas fa-map"></i>
+                    </div>
+                    <h3 class="nav-title pixel-font">Niveles</h3>
+                    <p>Guía de todos los escenarios</p>
+                </div>
+                
+                <div class="nav-card pixel-box" onclick="showSection('achievements')">
+                    <div class="nav-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3 class="nav-title pixel-font">Logros</h3>
+                    <p>Desbloquea todos los trofeos</p>
+                </div>
+                
+                <div class="nav-card pixel-box" onclick="showSection('code')">
+                    <div class="nav-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="nav-title pixel-font">Código</h3>
+                    <p>API y modificación del juego</p>
+                </div>
+                
+                <div class="nav-card pixel-box" onclick="showSection('faq')">
+                    <div class="nav-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3 class="nav-title pixel-font">FAQ</h3>
+                    <p>Preguntas frecuentes</p>
+                </div>
+                
+                <div class="nav-card pixel-box" onclick="showSection('changelog')">
+                    <div class="nav-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <h3 class="nav-title pixel-font">Actualizaciones</h3>
+                    <p>Historial de versiones</p>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Contenido de la Guía -->
+        <main class="guide-content">
+            <!-- Sección: Conceptos Básicos -->
+            <section id="basics-section" class="guide-section active">
+                <h2 class="section-title pixel-font">Conceptos Básicos</h2>
+                
+                <div class="section-content">
+                    <p>Wheelie Life es un juego de acrobacias en bicicleta que simula la física realista de las "wheelies" (caballitos) y trucos en dos ruedas.</p>
+                    
+                    <div class="image-container">
+                        <div class="guide-image" style="height: 300px; background: linear-gradient(135deg, #4a6fa5, #ff6b6b); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
+                            [Imagen del juego: Personaje haciendo wheelie]
+                        </div>
+                        <p class="image-caption">Ejemplo de un wheelie perfecto en Wheelie Life</p>
+                    </div>
+                </div>
+                
+                <h3 class="section-subtitle">Mecánicas Principales</h3>
+                <ul class="guide-list">
+                    <li><strong>Equilibrio:</strong> Mantén el equilibrio ajustando tu peso hacia adelante o atrás</li>
+                    <li><strong>Velocidad:</strong> Controla la velocidad con los pedales para mantener el wheelie</li>
+                    <li><strong>Dirección:</strong> Gira suavemente para no perder el equilibrio</li>
+                    <li><strong>Trucos:</strong> Realiza acrobacias para ganar puntos extra</li>
+                    <li><strong>Combos:</strong> Encadena trucos para multiplicar tu puntuación</li>
+                </ul>
+                
+                <div class="tip-box">
+                    <p><strong>CONSEJO:</strong> Comienza practicando en áreas abiertas antes de intentar los niveles difíciles. La paciencia es clave para dominar el equilibrio.</p>
+                </div>
+                
+                <h3 class="section-subtitle">Modos de Juego</h3>
+                <table class="guide-table">
+                    <thead>
+                        <tr>
+                            <th>Modo</th>
+                            <th>Descripción</th>
+                            <th>Dificultad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Libre</td>
+                            <td>Practica sin límites de tiempo ni objetivos</td>
+                            <td>Principiante</td>
+                        </tr>
+                        <tr>
+                            <td>Carrera</td>
+                            <td>Compite contra el reloj en circuitos desafiantes</td>
+                            <td>Intermedio</td>
+                        </tr>
+                        <tr>
+                            <td>Trucos</td>
+                            <td>Realiza acrobacias específicas para ganar puntos</td>
+                            <td>Avanzado</td>
+                        </tr>
+                        <tr>
+                            <td>Supervivencia</td>
+                            <td>Mantén el wheelie el mayor tiempo posible</td>
+                            <td>Experto</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Sección: Controles -->
+            <section id="controls-section" class="guide-section">
+                <h2 class="section-title pixel-font">Controles y Configuración</h2>
+                
+                <div class="section-content">
+                    <p>Wheelie Life es compatible con múltiples métodos de control. Aquí te mostramos todas las opciones disponibles.</p>
+                </div>
+                
+                <h3 class="section-subtitle">Controles de Teclado (PC)</h3>
+                <table class="guide-table">
+                    <thead>
+                        <tr>
+                            <th>Tecla</th>
+                            <th>Función</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Flecha Arriba</td>
+                            <td>Acelerar</td>
+                            <td>Pedalear hacia adelante</td>
+                        </tr>
+                        <tr>
+                            <td>Flecha Abajo</td>
+                            <td>Frenar</td>
+                            <td>Reducir velocidad o pedalear hacia atrás</td>
+                        </tr>
+                        <tr>
+                            <td>Flecha Izquierda</td>
+                            <td>Inclinarse atrás</td>
+                            <td>Transferir peso hacia atrás para levantar la rueda delantera</td>
+                        </tr>
+                        <tr>
+                            <td>Flecha Derecha</td>
+                            <td>Inclinarse adelante</td>
+                            <td>Transferir peso hacia adelante para bajar la rueda delantera</td>
+                        </tr>
+                        <tr>
+                            <td>Barra Espaciadora</td>
+                            <td>Truco</td>
+                            <td>Realizar acrobacia básica</td>
+                        </tr>
+                        <tr>
+                            <td>Tecla Shift</td>
+                            <td>Truco especial</td>
+                            <td>Realizar acrobacia avanzada</td>
+                        </tr>
+                        <tr>
+                            <td>Tecla ESC</td>
+                            <td>Menú</td>
+                            <td>Abrir menú de pausa</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3 class="section-subtitle">Controles Táctiles (Móvil)</h3>
+                <div class="section-content">
+                    <p>En dispositivos móviles, los controles se adaptan a la pantalla táctil:</p>
+                    <ul class="guide-list">
+                        <li><strong>Toque izquierdo:</strong> Área para acelerar/frenar (deslizar hacia arriba/abajo)</li>
+                        <li><strong>Toque derecho:</strong> Área para inclinarse adelante/atrás (deslizar izquierda/derecha)</li>
+                        <li><strong>Botones en pantalla:</strong> Para trucos y menús</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <p><strong>CONSEJO DE CONFIGURACIÓN:</strong> Puedes personalizar los controles en el menú de opciones. Experimenta con diferentes configuraciones hasta encontrar la que mejor se adapte a tu estilo de juego.</p>
+                </div>
+            </section>
+
+            <!-- Sección: Trucos -->
+            <section id="tricks-section" class="guide-section">
+                <h2 class="section-title pixel-font">Trucos y Acrobacias</h2>
+                
+                <div class="section-content">
+                    <p>Domina estas acrobacias para impresionar en la pista y obtener puntuaciones altas.</p>
+                </div>
+                
+                <h3 class="section-subtitle">Trucos Básicos</h3>
+                <table class="guide-table">
+                    <thead>
+                        <tr>
+                            <th>Truco</th>
+                            <th>Comando</th>
+                            <th>Puntos</th>
+                            <th>Dificultad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Wheelie Básico</td>
+                            <td>Mantener inclinación atrás + velocidad constante</td>
+                            <td>10 pts/segundo</td>
+                            <td>★☆☆☆☆</td>
+                        </tr>
+                        <tr>
+                            <td>Salto Simple</td>
+                            <td>Acelerar + inclinación atrás rápida</td>
+                            <td>50 pts</td>
+                            <td>★★☆☆☆</td>
+                        </tr>
+                        <tr>
+                            <td>Giro 180°</td>
+                            <td>Inclinación lateral durante wheelie</td>
+                            <td>100 pts</td>
+                            <td>★★★☆☆</td>
+                        </tr>
+                        <tr>
+                            <td>Manual</td>
+                            <td>Mantener rueda delantera en el aire sin pedalear</td>
+                            <td>15 pts/segundo</td>
+                            <td>★★☆☆☆</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3 class="section-subtitle">Trucos Avanzados</h3>
+                <table class="guide-table">
+                    <thead>
+                        <tr>
+                            <th>Truco</th>
+                            <th>Comando</th>
+                            <th>Puntos</th>
+                            <th>Dificultad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Backflip</td>
+                            <td>Salto + inclinación atrás extrema</td>
+                            <td>300 pts</td>
+                            <td>★★★★☆</td>
+                        </tr>
+                        <tr>
+                            <td>Frontflip</td>
+                            <td>Salto + inclinación adelante extrema</td>
+                            <td>350 pts</td>
+                            <td>★★★★☆</td>
+                        </tr>
+                        <tr>
+                            <td>Tailwhip</td>
+                            <td>Salto + giro rápido del manubrio</td>
+                            <td>400 pts</td>
+                            <td>★★★★★</td>
+                        </tr>
+                        <tr>
+                            <td>Superman</td>
+                            <td>Salto + soltar manubrios</td>
+                            <td>500 pts</td>
+                            <td>★★★★★</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="tip-box">
+                    <p><strong>CONSEJO DE TRUCOS:</strong> Los combos multiplican tu puntuación. Intenta encadenar al menos 3 trucos diferentes sin tocar el suelo para activar el multiplicador x2.</p>
+                </div>
+                
+                <div class="warning-box">
+                    <p><strong>ADVERTENCIA:</strong> Los trucos avanzados tienen mayor riesgo de caída. Practícalos en el modo libre antes de intentarlos en niveles de carrera.</p>
+                </div>
+            </section>
+
+            <!-- Sección: Niveles -->
+            <section id="levels-section" class="guide-section">
+                <h2 class="section-title pixel-font">Guía de Niveles</h2>
+                
+                <div class="section-content">
+                    <p>Cada nivel de Wheelie Life presenta desafíos únicos y secretos por descubrir.</p>
+                </div>
+                
+                <h3 class="section-subtitle">Niveles Principales</h3>
+                <table class="guide-table">
+                    <thead>
+                        <tr>
+                            <th>Nivel</th>
+                            <th>Objetivo</th>
+                            <th>Truco Secreto</th>
+                            <th>Recompensa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1. Parque Ciudad</td>
+                            <td>Recorre 500m en wheelie</td>
+                            <td>Realizar 3 saltos consecutivos en los bancos</td>
+                            <td>Desbloquea bicicleta urbana</td>
+                        </tr>
+                        <tr>
+                            <td>2. Skatepark</td>
+                            <td>Consigue 5000 puntos en trucos</td>
+                            <td>Backflip en la media tubería grande</td>
+                            <td>Desbloquea casco especial</td>
+                        </tr>
+                        <tr>
+                            <td>3. Montaña</td>
+                            <td>Supervivencia de 2 minutos en descenso</td>
+                            <td>Manual por todo el puente de madera</td>
+                            <td>Desbloquea bicicleta de montaña</td>
+                        </tr>
+                        <tr>
+                            <td>4. Centro Comercial</td>
+                            <td>Recolecta 50 monedas en 3 minutos</td>
+                            <td>Wheelie en todas las escaleras mecánicas</td>
+                            <td>Desbloquea skin de neón</td>
+                        </tr>
+                        <tr>
+                            <td>5. Estadio</td>
+                            <td>Puntuación perfecta en rutina de trucos</td>
+                            <td>Combo de 10 trucos diferentes</td>
+                            <td>Desbloquea bicicleta de competición</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3 class="section-subtitle">Niveles Secretos</h3>
+                <div class="section-content">
+                    <p>Para desbloquear niveles secretos, debes cumplir ciertos requisitos:</p>
+                    <ul class="guide-list">
+                        <li><strong>Nivel Luna:</strong> Completa todos los niveles principales con calificación A+</li>
+                        <li><strong>Nivel Retro:</strong> Encuentra y recolecta las 10 monedas secretas ocultas</li>
+                        <li><strong>Nivel Infinito:</strong> Mantén un wheelie por más de 5 minutos en cualquier nivel</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Sección: Logros -->
+            <section id="achievements-section" class="guide-section">
+                <h2 class="section-title pixel-font">Logros y Trofeos</h2>
+                
+                <div class="section-content">
+                    <p>Completa estos desafíos para desbloquear logros y demostrar tu maestría en Wheelie Life.</p>
+                </div>
+                
+                <h3 class="section-subtitle">Logros Principales</h3>
+                <table class="guide-table">
+                    <thead>
+                        <tr>
+                            <th>Logro</th>
+                            <th>Requisito</th>
+                            <th>Recompensa</th>
+                            <th>Rareza</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Primeros Pasos</td>
+                            <td>Completar el tutorial</td>
+                            <td>+100 monedas</td>
+                            <td>Común</td>
+                        </tr>
+                        <tr>
+                            <td>Equilibrista</td>
+                            <td>Mantener wheelie por 1 minuto</td>
+                            <td>+500 monedas</td>
+                            <td>Poco común</td>
+                        </tr>
+                        <tr>
+                            <td>Acróbata</td>
+                            <td>Realizar 10 trucos diferentes</td>
+                            <td>Desbloquea ruedas especiales</td>
+                            <td>Raro</td>
+                        </tr>
+                        <tr>
+                            <td>Maestro del Wheelie</td>
+                            <td>Completar todos los niveles en dificultad experto</td>
+                            <td>Bicicleta dorada</td>
+                            <td>Épico</td>
+                        </tr>
+                        <tr>
+                            <td>Leyenda Urbana</td>
+                            <td>Conseguir 1,000,000 de puntos en un solo nivel</td>
+                            <td>Skin legendario</td>
+                            <td>Legendario</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3 class="section-subtitle">Logros Secretos</h3>
+                <div class="section-content">
+                    <p>Algunos logros están ocultos y solo se revelan al cumplirlos:</p>
+                    <ul class="guide-list">
+                        <li><strong>Fantasma:</strong> Completar un nivel sin tocar el suelo ni una vez</li>
+                        <li><strong>Perfeccionista:</strong> Obtener calificación A+ en todos los niveles</li>
+                        <li><strong>Coleccionista:</strong> Recolectar todas las monedas del juego</li>
+                        <li><strong>Invencible:</strong> Jugar 7 días consecutivos</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Sección: Código y API -->
+            <section id="code-section" class="guide-section">
+                <h2 class="section-title pixel-font">API y Modificación</h2>
+                
+                <div class="section-content">
+                    <p>Wheelie Life incluye una API para desarrolladores que quieran crear mods o integrar funcionalidades.</p>
+                </div>
+                
+                <h3 class="section-subtitle">Estructura Básica del Juego</h3>
+                
+                <div class="code-block">
+                    <div class="code-header">
+                        <div class="code-title">Estructura del Personaje (player.js)</div>
+                        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                    </div>
+                    <pre><code><span class="code-comment">// Clase principal del jugador en Wheelie Life</span>
+<span class="code-keyword">class</span> <span class="code-string">Player</span> {
+    <span class="code-keyword">constructor</span>(x, y) {
+        <span class="code-keyword">this</span>.position = { x: x, y: y };
+        <span class="code-keyword">this</span>.velocity = { x: <span class="code-number">0</span>, y: <span class="code-number">0</span> };
+        <span class="code-keyword">this</span>.angle = <span class="code-number">0</span>; <span class="code-comment">// Ángulo de inclinación</span>
+        <span class="code-keyword">this</span>.balance = <span class="code-number">100</span>; <span class="code-comment">// Nivel de equilibrio (0-100)</span>
+        <span class="code-keyword">this</span>.speed = <span class="code-number">0</span>;
+        <span class="code-keyword">this</span>.trickMultiplier = <span class="code-number">1</span>;
+    }
+
+    <span class="code-comment">// Actualizar física del jugador</span>
+    update(deltaTime) {
+        <span class="code-comment">// Aplicar gravedad</span>
+        <span class="code-keyword">this</span>.velocity.y += GRAVITY * deltaTime;
+        
+        <span class="code-comment">// Aplicar velocidad horizontal</span>
+        <span class="code-keyword">this</span>.position.x += <span class="code-keyword">this</span>.velocity.x * deltaTime;
+        <span class="code-keyword">this</span>.position.y += <span class="code-keyword">this</span>.velocity.y * deltaTime;
+        
+        <span class="code-comment">// Actualizar equilibrio</span>
+        <span class="code-keyword">this</span>.updateBalance(deltaTime);
+    }
+
+    <span class="code-comment">// Realizar un truco</span>
+    performTrick(trickType) {
+        <span class="code-keyword">const</span> trick = TRICKS[trickType];
+        <span class="code-keyword">if</span> (trick &amp;&amp; <span class="code-keyword">this</span>.canPerformTrick()) {
+            <span class="code-keyword">this</span>.trickMultiplier += <span class="code-number">0.1</span>;
+            <span class="code-keyword">return</span> trick.points * <span class="code-keyword">this</span>.trickMultiplier;
+        }
+        <span class="code-keyword">return</span> <span class="code-number">0</span>;
+    }
+}</code></pre>
+                </div>
+                
+                <h3 class="section-subtitle">API de Eventos</h3>
+                
+                <div class="code-block">
+                    <div class="code-header">
+                        <div class="code-title">Sistema de Eventos (events.js)</div>
+                        <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                    </div>
+                    <pre><code><span class="code-comment">// API de eventos para mods de Wheelie Life</span>
+<span class="code-keyword">const</span> WheelieEvents = {
+    
+    <span class="code-comment">// Eventos del jugador</span>
+    <span class="code-keyword">on</span>: {
+        <span class="code-string">'trick-performed'</span>: (trickName, points) => {
+            console.log(`Truco realizado: ${trickName} - ${points} puntos`);
+        },
+        
+        <span class="code-string">'wheelie-started'</span>: (duration) => {
+            console.log(`Wheelie iniciado. Duración actual: ${duration}s`);
+        },
+        
+        <span class="code-string">'level-completed'</span>: (levelId, score, stars) => {
+            console.log(`Nivel ${levelId} completado con ${score} puntos y ${stars} estrellas`);
+        }
+    },
+    
+    <span class="code-comment">// Registrar un evento personalizado</span>
+    registerEvent: <span class="code-keyword">function</span>(eventName, callback) {
+        <span class="code-keyword">this</span>.<span class="code-keyword">on</span>[eventName] = callback;
+    },
+    
+    <span class="code-comment">// Despachar un evento</span>
+    dispatch: <span class="code-keyword">function</span>(eventName, ...args) {
+        <span class="code-keyword">if</span> (<span class="code-keyword">this</span>.<span class="code-keyword">on</span>[eventName]) {
+            <span class="code-keyword">this</span>.<span class="code-keyword">on</span>[eventName](...args);
+        }
+    }
+};
+
+<span class="code-comment">// Ejemplo de uso para mods</span>
+WheelieEvents.registerEvent(<span class="code-string">'custom-trick'</span>, (name, points) => {
+    <span class="code-comment">// Tu código personalizado aquí</span>
+    addToLeaderboard(name, points);
+});</code></pre>
+                </div>
+                
+                <div class="info-box">
+                    <p><strong>PARA DESARROLLADORES:</strong> Wheelie Life está construido con JavaScript y utiliza una arquitectura modular. Puedes acceder al código fuente completo en el repositorio de GitHub y crear tus propios mods siguiendo la documentación técnica.</p>
+                </div>
+            </section>
+
+            <!-- Sección: FAQ -->
+            <section id="faq-section" class="guide-section">
+                <h2 class="section-title pixel-font">Preguntas Frecuentes</h2>
+                
+                <div class="section-content">
+                    <p>Respuestas a las preguntas más comunes sobre Wheelie Life.</p>
+                </div>
+                
+                <h3 class="section-subtitle">Problemas Técnicos</h3>
+                
+                <div class="section-content">
+                    <p><strong>Q: ¿El juego es gratuito?</strong><br>
+                    R: Sí, Wheelie Life es completamente gratuito. Puedes descargarlo y jugar sin costo alguno.</p>
+                    
+                    <p><strong>Q: ¿En qué plataformas está disponible?</strong><br>
+                    R: Actualmente disponible para Windows, macOS, Linux, Android y navegadores web.</p>
+                    
+                    <p><strong>Q: ¿Requiere conexión a internet?</strong><br>
+                    R: Solo para la descarga inicial y actualizaciones. El juego se puede jugar completamente offline.</p>
+                    
+                    <p><strong>Q: ¿Cómo soluciono problemas de rendimiento?</strong><br>
+                    R: Reduce la calidad gráfica en las opciones, cierra otras aplicaciones y asegúrate de tener los drivers actualizados.</p>
+                </div>
+                
+                <h3 class="section-subtitle">Jugabilidad</h3>
+                
+                <div class="section-content">
+                    <p><strong>Q: ¿Cómo mantengo el equilibrio por más tiempo?</strong><br>
+                    R: Practica ajustes pequeños y frecuentes en lugar de movimientos bruscos. La clave está en la anticipación.</p>
+                    
+                    <p><strong>Q: ¿Los trucos avanzados son necesarios para completar el juego?</strong><br>
+                    R: No, pero te ayudarán a obtener mejores puntuaciones y desbloquear contenido extra.</p>
+                    
+                    <p><strong>Q: ¿Hay multijugador?</strong><br>
+                    R: Actualmente no, pero está planeado para futuras actualizaciones.</p>
+                    
+                    <p><strong>Q: ¿Cómo guardo mi progreso?</strong><br>
+                    R: El progreso se guarda automáticamente en tu dispositivo. También puedes crear copias manuales.</p>
+                </div>
+                
+                <div class="tip-box">
+                    <p><strong>¿NO ENCUENTRAS TU PREGUNTA?</strong> Visita el foro oficial de Wheelie Life en GitHub o contacta al desarrollador en aminbena010@gmail.com</p>
+                </div>
+            </section>
+
+            <!-- Sección: Historial de Versiones -->
+            <section id="changelog-section" class="guide-section">
+                <h2 class="section-title pixel-font">Historial de Actualizaciones</h2>
+                
+                <div class="section-content">
+                    <p>Registro de todos los cambios, mejoras y nuevas características añadidas a Wheelie Life.</p>
+                </div>
+                
+                <h3 class="section-subtitle">Versión 2.0.1 (Actual)</h3>
+                <ul class="guide-list">
+                    <li><strong>NUEVO:</strong> Añadido nivel secreto "Estadio Olímpico"</li>
+                    <li><strong>NUEVO:</strong> 5 nuevas bicicletas desbloqueables</li>
+                    <li><strong>MEJORA:</strong> Física de wheelie más realista</li>
+                    <li><strong>MEJORA:</strong> Sistema de logros renovado</li>
+                    <li><strong>CORRECCIÓN:</strong> Solucionado bug de guardado en dispositivos móviles</li>
+                    <li><strong>CORRECCIÓN:</strong> Problemas de rendimiento en Linux solucionados</li>
+                    <li><strong>ACTUALIZACIÓN:</strong> API para desarrolladores ampliada</li>
+                </ul>
+                
+                <h3 class="section-subtitle">Versión 1.9.5</h3>
+                <ul class="guide-list">
+                    <li>Añadido modo supervivencia</li>
+                    <li>10 nuevos trucos</li>
+                    <li>Soporte para gamepads</li>
+                    <li>Mejoras en la interfaz de usuario</li>
+                </ul>
+                
+                <h3 class="section-subtitle">Versión 1.5.0</h3>
+                <ul class="guide-list">
+                    <li>Versión inicial pública</li>
+                    <li>5 niveles principales</li>
+                    <li>15 trucos básicos</li>
+                    <li>Soporte para PC y navegadores web</li>
+                </ul>
+                
+                <div class="info-box">
+                    <p><strong>PRÓXIMAS ACTUALIZACIONES:</strong> Se planea añadir modo multijugador, editor de niveles y más bicicletas personalizables en la versión 2.5.0.</p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="guide-footer pixel-box">
+            <div class="footer-links">
+                <a href="https://aminbena010-ai.github.io/WHEELIE-LIFE/" target="_blank" class="footer-link">
+                    <i class="fas fa-gamepad"></i> Jugar Wheelie Life
+                </a>
+                
+                <a href="https://github.com/aminbena010-ai/WHEELIE-LIFE" target="_blank" class="footer-link">
+                    <i class="fab fa-github"></i> Código Fuente
+                </a>
+                
+                <a href="mailto:aminbena010@gmail.com" class="footer-link">
+                    <i class="fas fa-envelope"></i> Contacto
+                </a>
+                
+                <a href="#" onclick="showSection('faq')" class="footer-link">
+                    <i class="fas fa-question-circle"></i> Soporte
+                </a>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 AminBena010. Guía oficial de Wheelie Life.</p>
+                <p>Esta guía se actualiza regularmente con cada nueva versión del juego.</p>
+                <p>Última actualización de la guía: 15 de Octubre de 2023</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // =============================================
+        // FUNCIONALIDADES DE LA GUÍA
+        // =============================================
+        
+        // Mostrar sección específica
+        function showSection(sectionId) {
+            // Ocultar todas las secciones
+            document.querySelectorAll('.guide-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Mostrar sección seleccionada
+            const targetSection = document.getElementById(`${sectionId}-section`);
+            if (targetSection) {
+                targetSection.classList.add('active');
+                
+                // Scroll suave a la sección
+                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            
+            // Actualizar navegación activa (opcional)
+            updateActiveNav(sectionId);
+        }
+        
+        // Actualizar navegación activa
+        function updateActiveNav(sectionId) {
+            // Esta función podría añadir clases activas a las tarjetas de navegación
+            document.querySelectorAll('.nav-card').forEach(card => {
+                card.style.opacity = '0.8';
+            });
+            
+            const activeCard = document.querySelector(`[onclick="showSection('${sectionId}')"]`);
+            if (activeCard) {
+                activeCard.style.opacity = '1';
+                activeCard.style.borderColor = 'var(--accent)';
+            }
+        }
+        
+        // Copiar código al portapapeles
+        function copyCode(button) {
+            const codeBlock = button.parentElement.nextElementSibling;
+            const codeText = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(codeText).then(() => {
+                // Feedback visual
+                const originalText = button.textContent;
+                button.textContent = '¡Copiado!';
+                button.style.background = 'var(--success)';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = 'var(--primary)';
+                }, 2000);
+            }).catch(err => {
+                console.error('Error al copiar: ', err);
+                button.textContent = 'Error';
+                button.style.background = 'var(--secondary)';
+            });
+        }
+        
+        // =============================================
+        // MEJORAS DE USABILIDAD
+        // =============================================
+        
+        // Añadir números de sección automáticamente
+        function addSectionNumbers() {
+            const sections = document.querySelectorAll('.guide-section .section-title');
+            sections.forEach((section, index) => {
+                const title = section.textContent;
+                // Solo añadir número si no lo tiene ya
+                if (!title.match(/^\d/)) {
+                    section.textContent = `${index + 1}. ${title}`;
+                }
+            });
+        }
+        
+        // Resaltar código sintácticamente
+        function highlightCode() {
+            const codeElements = document.querySelectorAll('code');
+            codeElements.forEach(code => {
+                let html = code.innerHTML;
+                
+                // Resaltar comentarios
+                html = html.replace(/\/\/.*$/gm, '<span class="code-comment">$&</span>');
+                
+                // Resaltar palabras clave
+                const keywords = ['class', 'constructor', 'function', 'if', 'else', 'return', 'const', 'let', 'var', 'this'];
+                keywords.forEach(keyword => {
+                    const regex = new RegExp(`\\b${keyword}\\b`, 'g');
+                    html = html.replace(regex, `<span class="code-keyword">${keyword}</span>`);
+                });
+                
+                // Resaltar strings
+                html = html.replace(/'[^']*'/g, '<span class="code-string">$&</span>');
+                html = html.replace(/"[^"]*"/g, '<span class="code-string">$&</span>');
+                
+                // Resaltar números
+                html = html.replace(/\b\d+\b/g, '<span class="code-number">$&</span>');
+                
+                code.innerHTML = html;
+            });
+        }
+        
+        // =============================================
+        // INICIALIZACIÓN
+        // =============================================
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Añadir números de sección
+            addSectionNumbers();
+            
+            // Resaltar código
+            highlightCode();
+            
+            // Configurar primera tarjeta como activa
+            updateActiveNav('basics');
+            
+            // Añadir funcionalidad de búsqueda (simple)
+            setupSearchFunctionality();
+        });
+        
+        // Configurar funcionalidad de búsqueda básica
+        function setupSearchFunctionality() {
+            // Podría expandirse para añadir una barra de búsqueda real
+            console.log('Funcionalidad de búsqueda lista para implementar');
+        }
+        
+        // =============================================
+        // ANIMACIONES Y EFECTOS
+        // =============================================
+        
+        // Efecto de scroll suave para enlaces internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
